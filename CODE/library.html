@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LIBRARY</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </head>
+  <script>
+	$(document).ready(function() {
+		
+		$("#submit").click(function(){
+
+			   $("#Table tr").remove();
+
+			   var ISBN = $("#ISBN").val();
+			   var Title = $("#Title").val();
+			   var Authors = $("#Authors").val();
+			   $.ajax
+			   ({			   
+					type:"POST",
+					url: "http://localhost/www/library.php",
+					data : ({ISBN : ISBN, Title : Title, Authors: Authors}),
+					success:  function(response)
+					{	
+						
+						$.each( JSON.parse(response), function( index, value ){
+
+						$("#Table").append("<tr><td>"+value.ISBN+"</td><td>"+value.Title+"</td><td>"+value.Authors+"</td><td>"+value.Branch_id+"</td><td>"+value.Branch_name+"</td><td>"+value.No_of_copies+"</td><td>"+value.Available+"</td></tr>)");
+						});
+					}							
+				});
+				
+				
+		});
+	});
+	</script>
+  <body>
+  <div class="container">
+   <div class="row">
+    <nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">Library Management System</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+	      <li class="active"><a href="#">Book Search</a></li>
+	      <li><a href="check_out.html">Check Out</a></li>
+	      <li><a href="check_in.html">Check In</a></li> 
+	      <li><a href="borrower.html">Add Borrower</a></li> 
+	      <li><a href="fines.html">Fines</a></li> 
+	    </ul>
+	  </div>
+	</nav>
+    <br>
+    </div>
+    <h3> Search Books </h3>
+    <div class="row col-xs-4">
+	  <div class="form-group">
+	    <label for="ISBN">ISBN</label>
+	    <input type="text" class="form-control" id="ISBN" placeholder="ISBN">
+	  </div>
+	  <div class="form-group">
+	    <label for="text">Title</label>
+	    <input type="text" class="form-control" id="Title" placeholder="Title">
+	  </div>
+	 <div class="form-group">
+	    <label for="text">Authors(s)</label>
+	    <input type="text" class="form-control" id="Authors" placeholder="Author(s)">
+	  </div>
+	  <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+	  <br>
+	  </div>
+	<div class="row col-xs-12">
+	<br>
+	<br>
+	<div id="result">
+		<table class="table table-bordered table-hover">
+		  <thead class="thead-default">
+		    <tr>
+		      <th>ISBN</th>
+		      <th>Title</th>
+		      <th>Book_Authors</th>
+		      <th>Branch ID</th>
+		      <th>Branch Name</th>
+		      <th>Copies Owned</th>
+		      <th>Copies Available</th>
+		    </tr>
+		  </thead>
+		  <tbody id = "Table">
+		   
+		  </tbody>
+		</table>
+	</div>
+	</div>
+	</div>
+  </body>
+</html>
+ 
+
+</body></html>
+

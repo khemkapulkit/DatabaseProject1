@@ -1,0 +1,1 @@
+1. This application was made using HTML 5  , CSS ,  Jquery and PHP. Was compiled, run and tested on a MAC OS EL CAPITAN using Apache server.2. To run copy the files in the ÒCODEÓ folder to the root folder of the apache server. 3.  Then you can access the site by going to localhost/library.html4. You can find further instructions in the starter kit.
